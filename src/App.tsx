@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { Button } from './components/Button';
 
@@ -6,7 +6,7 @@ import { Button } from './components/Button';
 import { SideBar } from './components/SideBar';
 import { Content } from './components/Content';
 
-import {GenreResponseProps, MovieProps} from './types/index';
+import { GenreResponseProps, MovieProps } from './types/index';
 import { api } from './services/api';
 
 import './styles/global.scss';
@@ -40,20 +40,20 @@ export function App() {
     })
   }, [selectedGenreId]);
 
-  function handleClickButton(id: number) {
+  const handleClickButton = useCallback((id: number) => {
     setSelectedGenreId(id);
-  }
+  }, [selectedGenreId]);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'row' }}>
-      <SideBar 
-        genres={genres} 
-        handleClickButton={handleClickButton} 
+      <SideBar
+        genres={genres}
+        handleClickButton={handleClickButton}
         selectedGenreId={selectedGenreId}
       />
 
-      <Content 
-        selectedGenre={selectedGenre} 
+      <Content
+        selectedGenre={selectedGenre}
         movies={movies}
       />
     </div>
